@@ -18,7 +18,7 @@ queueCode = 0
 # Verify queue input validation
 while queueCode == 0:
     print("Which queue?")
-    queue = input()
+    queue = input().lower()
     queueCode = switch(queue)
 
 api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
