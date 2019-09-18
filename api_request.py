@@ -1,7 +1,6 @@
 import requests
-import operator
 
-# development key changes every 24 hours
+# development key changes every 24 hours, access it by logging in 
 api_key = "RGAPI-c81275da-997c-413f-ab07-4dd4fcc6f722"
 
 # request headers
