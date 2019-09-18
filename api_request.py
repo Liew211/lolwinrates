@@ -43,7 +43,7 @@ def getSummonerId(summonerName: str):
 # 440 - 5v5 Ranked Flex
 # 450 - 5v5 ARAM
 def getMatchList(summonerId: str, queue: int):
-    params = '?queue={}&season=13&endIndex=10'.format(queue)
+    params = '?queue={}&season=13&endIndex=50'.format(queue)
     summonerMatchlistUrl = 'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summonerId + params
     return requests.get(summonerMatchlistUrl, headers = headers).json()
 
