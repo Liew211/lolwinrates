@@ -43,11 +43,12 @@ def getSummonerId(summonerName: str):
 # 440 - 5v5 Ranked Flex
 # 450 - 5v5 ARAM
 def getMatchList(summonerId: str, queue: int):
-    params = '?queue={}&season=13&endIndex=50'.format(queue)
+    params = '?queue={}&season=13&endIndex=10'.format(queue)
     summonerMatchlistUrl = 'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summonerId + params
     return requests.get(summonerMatchlistUrl, headers = headers).json()
 
 # Given matchlist, print the overall winrate and the list of champions played, their winrates, and number of games played
+# Also returns the champion names and their respective winrates as two lists
 def displayWinrates(matchList: dict):
     win_loss = [0,0]
     champion_winrates = {}
@@ -91,6 +92,8 @@ def displayWinrates(matchList: dict):
 
     # Sort champions in descending order of games 
     champion_winrates = dict(sorted(champion_winrates.items(), reverse=True, key=lambda x: x[1][2]))
+    champion_list = []
+    champion_winrates_list = []
 
     # Overall wins and losses
     print(win_loss[0], 'wins', win_loss[1], 'losses')
@@ -99,8 +102,15 @@ def displayWinrates(matchList: dict):
     print('%.2f'%(winrate(win_loss)) + "%")
     for champion in champion_winrates:
         # Prints champion winrates and checks for plural games
-        games = champion_winrates[champion][0] + champion_winrates[champion][1]
+        percentage = '%.2f'%(winrate(champion_winrates[champion]))
+        games = champion_winrates[champion][2]
+
+        champion_list.append(champion)
+        champion_winrates_list.append(float(percentage))
+
         if games == 1:
-            print(champion, '%.2f'%(winrate(champion_winrates[champion])) + '%', champion_winrates[champion][2], 'game')
+            print(champion, percentage + '%', games, 'game')
         else:
-            print(champion, '%.2f'%(winrate(champion_winrates[champion])) + '%', champion_winrates[champion][2], 'games')
+            print(champion, percentage + '%', games, 'games')
+
+    return champion_list, champion_winrates_list
