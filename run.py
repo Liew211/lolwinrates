@@ -9,6 +9,7 @@ def switch(queue):
         'draft': 400,
         'solo': 420,
         'flex': 440,
+        'aram': 450
     }
     return switcher.get(queue, 0)
 
