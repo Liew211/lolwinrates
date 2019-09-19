@@ -1,6 +1,7 @@
 import api_request as api
 import matplotlib.pyplot as plt
 import numpy as np
+plt.style.use('ggplot')
 
 # Switch statement for queue type
 def switch(queue):
@@ -32,7 +33,7 @@ plt.xlabel('Champion')
 plt.ylabel('Winrate')
 plt.ylim(0,100)
 
-plt.xticks(y_pos, x, rotation=30, fontsize='10', horizontalalignment='right')
+plt.xticks(y_pos, x, rotation=45, fontsize='10', horizontalalignment='right')
 
 
 if queue == 'blind' or queue == 'draft':
