@@ -1,7 +1,8 @@
 import requests
 
-# development key changes every 24 hours, access it by logging in 
-api_key = "RGAPI-7bd4e854-cbd3-4dd9-9c40-3335a6ad4325"
+# Development key changes every 24 hours, access it by logging in to the Riot Developer Portal with your League of Legends account
+# Paste your API key here:
+api_key = "RGAPI-00000000-0000-0000-0000-000000000000"
 
 # request headers
 headers = {

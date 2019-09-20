@@ -15,6 +15,7 @@ def switch(queue):
     return switcher.get(queue, 0)
 
 # Prompt user for inputs
+# Does not verify input for summoner name
 print("Summoner Name?")
 summonerId = input()
 
@@ -25,13 +26,18 @@ while queueCode == 0:
     queue = input().lower()
     queueCode = switch(queue)
 
+# Gets list of champions & their winrates as a pair of lists, in order of number of games played
 x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
 
 fig, ax = plt.subplots()
 
-y_pos = np.arange(len(x))
-bar_plot = plt.bar(y_pos, y)
+# Plots bar graph
+x_pos = np.arange(len(x))
+bar_plot = plt.bar(x_pos, y)
+
+# Creates labels for each bar
 for champion,rect in enumerate(bar_plot):
+    # Label in white, inside the bar if the winrate is greater than 90%
     if y[champion] > 90:
         height = y[champion] - 5
         color = 'white'
@@ -43,20 +49,22 @@ for champion,rect in enumerate(bar_plot):
                 text,
                 ha='center', va='bottom', rotation=0, fontsize='9', color=color)
 
-
+# X and Y axis labels
 plt.xlabel('Champion')
 plt.ylabel('Winrate')
 plt.ylim(0,100)
 
-plt.xticks(y_pos, x, rotation=45, fontsize='10', horizontalalignment='right')
+# Rotated X axis label for each champion
+plt.xticks(x_pos, x, rotation=45, fontsize='10', horizontalalignment='right')
 
-
+# Displays title
 if queue == 'blind' or queue == 'draft':
     queue += ' pick'
 else:
     queue = 'ranked ' + queue
 title = 'Winrates per champion for ' + summonerId + ' in ' + queue
 plt.title(title)
-plt.tight_layout()
 
+# Prevent labels from being cut off
+plt.tight_layout()
 plt.show()
