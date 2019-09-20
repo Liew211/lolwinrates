@@ -22,3 +22,4 @@ Vladimir 0.00% 1 game
 Corki 0.00% 1 game
 Garen 100.00% 1 game
 ```
+![](sample.png)
