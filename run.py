@@ -27,8 +27,23 @@ while queueCode == 0:
 
 x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
 
+fig, ax = plt.subplots()
+
 y_pos = np.arange(len(x))
-plt.bar(y_pos, y)
+bar_plot = plt.bar(y_pos, y)
+for champion,rect in enumerate(bar_plot):
+    if y[champion] > 90:
+        height = y[champion] - 5
+        color = 'white'
+    else:
+        height = y[champion] + 0.5
+        color = 'black'
+    text = str(y[champion]) + "%"
+    ax.text(rect.get_x() + rect.get_width()/2., height,
+                text,
+                ha='center', va='bottom', rotation=0, fontsize='9', color=color)
+
+
 plt.xlabel('Champion')
 plt.ylabel('Winrate')
 plt.ylim(0,100)
@@ -43,4 +58,5 @@ else:
 title = 'Winrates per champion for ' + summonerId + ' in ' + queue
 plt.title(title)
 plt.tight_layout()
+
 plt.show()

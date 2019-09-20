@@ -1,7 +1,7 @@
 import requests
 
 # development key changes every 24 hours, access it by logging in 
-api_key = "RGAPI-c81275da-997c-413f-ab07-4dd4fcc6f722"
+api_key = "RGAPI-7bd4e854-cbd3-4dd9-9c40-3335a6ad4325"
 
 # request headers
 headers = {
@@ -43,7 +43,7 @@ def getSummonerId(summonerName: str):
 # 440 - 5v5 Ranked Flex
 # 450 - 5v5 ARAM
 def getMatchList(summonerId: str, queue: int):
-    params = '?queue={}&season=13&endIndex=10'.format(queue)
+    params = '?queue={}&season=13&endIndex=50'.format(queue)
     summonerMatchlistUrl = 'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summonerId + params
     return requests.get(summonerMatchlistUrl, headers = headers).json()
 
