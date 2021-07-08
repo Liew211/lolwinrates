@@ -1,6 +1,7 @@
 import api_request as api
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 plt.style.use('ggplot')
 
 # Switch statement for queue type
@@ -26,14 +27,20 @@ while queueCode == 0:
     queue = input().lower()
     queueCode = switch(queue)
 
+print("Loading information from the nickname...")
+
+# Gets start and end time for the function
+start = time.time()
 # Gets list of champions & their winrates as a pair of lists, in order of number of games played
 x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
+
+end = time.time()
+print(f"Data acquired in {end-start:.2f} seconds.")
 
 fig, ax = plt.subplots()
 
 # Plots bar graph
 x_pos = np.arange(len(x))
-
 bar_plot = plt.bar(x_pos, y)
 
 # Set bar colours for different winrates
