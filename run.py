@@ -26,8 +26,6 @@ while queueCode == 0:
     queue = input().lower()
     queueCode = switch(queue)
 
-print("Loading information from the nickname...")
-
 # Gets list of champions & their winrates as a pair of lists, in order of number of games played
 x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
 
