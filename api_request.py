@@ -32,7 +32,7 @@ def winrate(winloss: list):
 
 # Each player has an encrypted account ID that is used to get match history and other data
 def getSummonerId(summonerName: str):
-    summonerNameUrl = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName
+    summonerNameUrl = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName
     response = requests.get(summonerNameUrl, headers = headers).json()
     return response['accountId']
 
@@ -45,7 +45,7 @@ def getSummonerId(summonerName: str):
 # 450 - 5v5 ARAM
 def getMatchList(summonerId: str, queue: int):
     params = '?queue={}&season=13&endIndex=50'.format(queue)
-    summonerMatchlistUrl = 'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summonerId + params
+    summonerMatchlistUrl = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summonerId + params
     return requests.get(summonerMatchlistUrl, headers = headers).json()
 
 # Given matchlist, print the overall winrate and the list of champions played, their winrates, and number of games played
@@ -60,7 +60,7 @@ def displayWinrates(matchList: dict):
         gameId = match['gameId']
 
         # Access match data
-        matchUrl = 'https://na1.api.riotgames.com/lol/match/v4/matches/{}'.format(gameId)
+        matchUrl = 'https://br1.api.riotgames.com/lol/match/v4/matches/{}'.format(gameId)
         matchInfo = requests.get(matchUrl, headers = headers).json()
         
         # Find participant ID

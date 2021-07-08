@@ -26,6 +26,8 @@ while queueCode == 0:
     queue = input().lower()
     queueCode = switch(queue)
 
+print("Loading information from the nickname...")
+
 # Gets list of champions & their winrates as a pair of lists, in order of number of games played
 x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
 
@@ -33,7 +35,19 @@ fig, ax = plt.subplots()
 
 # Plots bar graph
 x_pos = np.arange(len(x))
+
 bar_plot = plt.bar(x_pos, y)
+
+# Set bar colours for different winrates
+for i, bar in enumerate(bar_plot):
+    if y[i]>=70:
+        bar.set_color("#FFAB0F")
+    elif y[i]>=60 and y[i]<70:
+        bar.set_color("#006AB7")
+    elif y[i]>=50 and y[i]<60:
+        bar.set_color("#80C1F0")
+    else:
+        bar.set_color("grey")
 
 # Creates labels for each bar
 for champion,rect in enumerate(bar_plot):
