@@ -15,7 +15,28 @@ def switch(queue):
     }
     return switcher.get(queue, 0)
 
+def platformSelector(region):
+    regions = {
+        "br": "br1",
+        "eune": "eun1",
+        "euw": "euw1",
+        "jp": "jp1",
+        "kr": "kr",
+        "lan": "la1",
+        "las": "la2",
+        "na": "na1",
+        "oce": "oc1",
+        "tr": "tr1",
+        "ru": "ru"
+    }
+    return regions.get(region, 0)
+
 # Prompt user for inputs
+# Region selector
+region = input("Which Region? (i.e. NA)\n").lower()
+region = platformSelector(region)
+print(region)
+
 # Does not verify input for summoner name
 print("Summoner Name?")
 summonerId = input()
@@ -32,7 +53,7 @@ print("Loading information from the nickname...")
 # Gets start and end time for the function
 start = time.time()
 # Gets list of champions & their winrates as a pair of lists, in order of number of games played
-x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId),queueCode))
+x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId, region),queueCode, region), region)
 
 end = time.time()
 print(f"Data acquired in {end-start:.2f} seconds.")
