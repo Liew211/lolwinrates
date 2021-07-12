@@ -52,7 +52,12 @@ print("Loading information from the nickname...")
 # Gets start and end time for the function
 start = time.time()
 # Gets list of champions & their winrates as a pair of lists, in order of number of games played
-x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId, region),queueCode, region), region)
+try:
+    x, y = api.displayWinrates(api.getMatchList(api.getSummonerId(summonerId, region),queueCode, region), region)
+# Exception for when the summonerId request gives an error 
+except:
+    print("That summoner name doesn't exist!")
+    exit()
 
 end = time.time()
 print(f"Data acquired in {end-start:.2f} seconds.")
