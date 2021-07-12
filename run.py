@@ -35,7 +35,6 @@ def platformSelector(region):
 # Region selector
 region = input("Which Region? (i.e. NA)\n").lower()
 region = platformSelector(region)
-print(region)
 
 # Does not verify input for summoner name
 print("Summoner Name?")
