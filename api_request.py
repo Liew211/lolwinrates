@@ -43,6 +43,9 @@ def winrate(winloss: list):
 def getSummonerId(summonerName: str, region):
     summonerNameUrl = f'https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName}'
     response = requests.get(summonerNameUrl, headers=headers).json()
+    if response['status']['status_code'] != 200:
+        print(response['status']['message'])
+        exit()
     return response['puuid']
 
 
