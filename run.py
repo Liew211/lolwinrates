@@ -6,6 +6,7 @@ plt.style.use('ggplot')
 # Switch statement for queue type
 def switch(queue):
     switcher = {
+        'custom': 0,
         'blind': 430,
         'draft': 400,
         'solo': 420,
@@ -19,9 +20,9 @@ def switch(queue):
 print("Summoner Name?")
 summonerId = input()
 
-queueCode = 0
+queueCode = -1
 # Verify queue input validation
-while queueCode == 0:
+while queueCode < 0:
     print("Which queue?")
     queue = input().lower()
     queueCode = switch(queue)
