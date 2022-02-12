@@ -31,8 +31,8 @@ def winrate(winloss: list):
     return winloss[0] / (winloss[0] + winloss[1]) * 100
 
 # Each player has an encrypted account ID that is used to get match history and other data
-def getSummonerId(summonerName: str):
-    summonerNameUrl = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + summonerName
+def getSummonerId(summonerName: str, region):
+    summonerNameUrl = f'https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName}'
     response = requests.get(summonerNameUrl, headers = headers).json()
     return response['accountId']
 
@@ -43,14 +43,14 @@ def getSummonerId(summonerName: str):
 # 430 - 5v5 Blind Pick
 # 440 - 5v5 Ranked Flex
 # 450 - 5v5 ARAM
-def getMatchList(summonerId: str, queue: int):
+def getMatchList(summonerId: str, queue: int, region):
     params = '?queue={}&season=13&endIndex=50'.format(queue)
-    summonerMatchlistUrl = 'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summonerId + params
+    summonerMatchlistUrl = f'https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{summonerId}{params}' # f-string added
     return requests.get(summonerMatchlistUrl, headers = headers).json()
 
 # Given matchlist, print the overall winrate and the list of champions played, their winrates, and number of games played
 # Also returns the champion names and their respective winrates as two lists
-def displayWinrates(matchList: dict):
+def displayWinrates(matchList: dict, region):
     win_loss = [0,0]
     champion_winrates = {}
 
@@ -60,7 +60,7 @@ def displayWinrates(matchList: dict):
         gameId = match['gameId']
 
         # Access match data
-        matchUrl = 'https://na1.api.riotgames.com/lol/match/v4/matches/{}'.format(gameId)
+        matchUrl = f'https://{region}.api.riotgames.com/lol/match/v4/matches/{gameId}'  # f-string added
         matchInfo = requests.get(matchUrl, headers = headers).json()
         
         # Find participant ID
